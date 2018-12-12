@@ -1,6 +1,7 @@
 import React from "react";
 
 export class Header extends React.Component {
+    
     render() {
         return (
             <nav className="navbar navbar-default">
@@ -9,7 +10,7 @@ export class Header extends React.Component {
                         <ul className="nav navbar-nav">
                             <li>
                                 <a href="">
-                                    Home
+                                    {this.props.homeLink}
                                 </a>
                             </li>
                         </ul>
