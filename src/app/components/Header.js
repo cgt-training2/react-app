@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 export class Header extends React.Component {
     
@@ -8,11 +9,18 @@ export class Header extends React.Component {
                 <div className="container">
                     <div className="navbar-header">
                         <ul className="nav navbar-nav">
+
                             <li>
-                                <a href="">
-                                    {this.props.homeLink}
-                                </a>
+                                <Link to="/"> 
+                                    Home
+                                </Link>
                             </li>
+
+                            <li>
+                                <Link to="/user"> 
+                                    User
+                                </Link>
+                            </li>                            
                         </ul>
                     </div>
                 </div>

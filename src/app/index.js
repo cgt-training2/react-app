@@ -1,83 +1,130 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Header } from "./components/Header";
-import { Home } from "./components/Home";
+// import React from 'react';
+// import ReactDom from 'react-dom';
+// import { render } from 'react-dom';
+// import { Header } from "./components/Header";
+// import { Home } from "./components/Home";
+// import { User } from "./components/User";
+// import  {Root}  from "./components/Root";
+// import { Router, Route } from "react-router";
+// import createHistory from 'history/createBrowserHistory';
 
-class App extends React.Component {
+// import {
+//   BrowserRouter as Router,
+//   Route
+// } from 'react-router-dom';
 
-    constructor(props){
-        super();
-        this.state ={
-            home:"Home",
-            homeMounted: true
-        };
+// class App extends React.Component {
+
+//     constructor(props){
+//         super();
+//         this.state ={
+//             home:"Home",
+//             homeMounted: true
+//         };
+//     }
+
+//     onChangeLink(newLink){
+
+//         this.setState({
+//           home: newLink  
+//         });
+//     }
+
+//     onGreet() {
+
+//         alert("Hello");
+//     }
+
+//     onChangeHomeMounted() {
+
+//         this.setState({
+//             homeMounted: !this.state.homeMounted
+//         });
+//     }
+
+//     render() {
+
+//         return (
+
+//             <Router>
+//                 <div>
+//                     <Root>
+//                         <Route exact={true} path='/' render={() => (
+//                             <div className="container">
+//                                 <div className="row">
+//                                     <Home />
+//                                 </div> 
+//                             </div> 
+//                         )}/>
+//                         <Route exact={true} path='/user' render={() => (
+//                             <div className="container">
+//                                 <div className="row">
+//                                     <User />
+//                                 </div> 
+//                             </div> 
+//                         )}/>
+//                     </Root>
+//                 </div>
+//             </Router>
+            
+//         );    
+//     }
+    
+// }
+
+// ReactDom.render(
+//     <App />, document.getElementById('root')
+// );
+
+// // render(<App/>, document.getElementById("root"));
+
+import {render} from "react-dom";
+import React from "react";
+import {createStore} from "redux";
+
+const reducer = (state, action) => {
+
+    switch (action.type) {
+
+        case "ADD":
+            state = state + action.payload;
+            break;
+        case "SUBTRACT":
+            state = state - action.payload;
+            break;
     }
 
-    onChangeLink(newLink){
+    return state;
 
-        this.setState({
-          home: newLink  
-        });
-    }
+};
 
-    onGreet(){
-        alert("Hello");
-    }
 
-    onChangeHomeMounted() {
-        this.setState({
-            homeMounted: !this.state.homeMounted
-        });
-    }
+const store = createStore(reducer, 20);
 
-    render() {
+store.subscribe(() => {
+    console.log("Store Updated!", store.getState());
+});
 
-    	var user ={
-    		name:"Vaibhav",
-    		hobbies: ["Sports", "Listening Music"]
-    	};
+store.dispatch({
+    type: "ADD",
+    payload: 100
+});
 
-        let homeCmp = "";
-        if (this.state.homeMounted) {
-            homeCmp = (
+store.dispatch({
+    type: "ADD",
+    payload: 22
+});
 
-                <Home 
-                    age={27} 
-                    name={"Props"} 
-                    user={user} 
-                    greet={this.onGreet}
-                    changeLink={this.onChangeLink.bind(this)}
-                    initialLink = {this.state.home}>
-                </Home>
-            );
-        }
+store.dispatch({
+    type: "SUBTRACT",
+    payload: 80
+});
 
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-xs-10 col-xs-offset-1">
-                        <Header homeLink={this.state.home}/>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-xs-10 col-xs-offset-1">
-                        {homeCmp}
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-xs-10 col-xs-offset-1">
 
-                        <button onClick={this.onChangeHomeMounted.bind(this)} 
-                            className="btn btn-primary">
-                                (Un)Mount Home Component
-                        </button>
 
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
 
-render(<App/>, document.getElementById("root"));
+
+
+
+
 
