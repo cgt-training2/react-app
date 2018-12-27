@@ -5,7 +5,7 @@
 // import { Home } from "./components/Home";
 // import { User } from "./components/User";
 // import  {Root}  from "./components/Root";
-// import { Router, Route } from "react-router";
+
 // import createHistory from 'history/createBrowserHistory';
 
 // import {
@@ -45,7 +45,6 @@
 //     render() {
 
 //         return (
-
 //             <Router>
 //                 <div>
 //                     <Root>
@@ -56,7 +55,7 @@
 //                                 </div> 
 //                             </div> 
 //                         )}/>
-//                         <Route exact={true} path='/user' render={() => (
+//                         <Route exact={true} path='/user' render = {() => (
 //                             <div className="container">
 //                                 <div className="row">
 //                                     <User />
@@ -65,8 +64,7 @@
 //                         )}/>
 //                     </Root>
 //                 </div>
-//             </Router>
-            
+//             </Router>         
 //         );    
 //     }
     
@@ -76,22 +74,37 @@
 //     <App />, document.getElementById('root')
 // );
 
-// // render(<App/>, document.getElementById("root"));
+// render(<App/>, document.getElementById("root"));
 
-import {render} from "react-dom";
+import { render } from "react-dom";
 import React from "react";
-import {createStore} from "redux";
+import { createStore } from "redux";
 
-const reducer = (state, action) => {
+const initialStore = {
+    result: 1,
+    lastvalues: []
+};
+
+const reducer = ( state = initialStore, action ) => {
 
     switch (action.type) {
 
         case "ADD":
-            state = state + action.payload;
+            state = {
+
+                result: state.result + action.payload,
+                lastvalues: [...state.lastvalues, action.payload]
+            };
             break;
+
         case "SUBTRACT":
-            state = state - action.payload;
+            state = {
+                
+                result: state.result - action.payload,
+                lastvalues: [...state.lastvalues, action.payload]
+            };
             break;
+
     }
 
     return state;
@@ -99,7 +112,7 @@ const reducer = (state, action) => {
 };
 
 
-const store = createStore(reducer, 20);
+const store = createStore(reducer);
 
 store.subscribe(() => {
     console.log("Store Updated!", store.getState());
