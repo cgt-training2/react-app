@@ -14,8 +14,9 @@ export class User extends React.Component {
 
             <div>
                 
-                <p>In User Component!</p>
-                
+                <p>In User Component!</p>  
+                <p> {this.props.username} </p>  
+             
             </div>
             
         );
